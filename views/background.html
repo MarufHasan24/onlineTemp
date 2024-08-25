@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--Code created by Maruf hasan-->
+<!--Date: 26 July, 2024-->
+<html>
+<meta name="author" content="Maruf hasan" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #bg {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            overflow: hidden;
+            font-family: chess;
+            font-size: max(5vh, 5vw);
+        }
+
+        @font-face {
+            font-family: chess;
+            src: url("./assets/fonts/chess.TTF");
+        }
+
+        .checker {
+            display: flex;
+            background-color: #fff;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .checker:nth-child(odd) {
+            background-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg"></div>
+</body>
+
+<script>
+
+    (function () {
+        const bg = document.getElementById("bg");
+        window.addEventListener("resize", call);
+        window.addEventListener("load", call);
+
+        function call() {
+            bg.innerHTML = "";
+            let dis = Math.random() >= 0.5 ? [150, 1] : [255, -1];
+            const color = [
+                (dis[0] + Math.random() * 100) * dis[1],
+                (dis[0] + Math.random() * 100) * dis[1],
+                (dis[0] + Math.random() * 100) * dis[1],
+            ];
+            let list = ["pbppnprpknpbqprp", "omotovotwomovolo"]
+            for (let i = 0; i < 64; i++) {
+                const checker = document.createElement("div");
+                checker.className = "checker";
+                checker.innerHTML = Math.random() >= 0.65 ? list[i % 2][Math.floor(Math.random() * 16)] : ""
+                if ((i + Math.floor(i / 8)) % 2 === 0) {
+                    checker.style.background = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+                } else {
+                    checker.style.background = `rgb(${255 - color[0]}, ${255 - color[1]}, ${255 - color[2]
+                        })`;
+                }
+                bg.appendChild(checker);
+            }
+        }
+
+        call();
+    })();
+</script>
+
+</html>

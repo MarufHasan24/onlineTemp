@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!--Code created by Maruf hasan-->
+<!--Date: 17 July, 2024-->
+<html>
+<meta name="author" content="Maruf hasan" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+<head>
+    <title>Template:<% data.title %>
+    </title>
+    <link rel="stylesheet" href="/assets/styles/common.css">
+    <link rel="stylesheet" href="/assets/styles/template.css">
+    <!--     <script src="/assets/scripts/jquery.min.js"></script> -->
+    <script src="/assets/scripts/tools.js"></script>
+</head>
+
+<body>
+    <iframe src="/background.html" frameborder="0"></iframe>
+    <main>
+        <div>
+            <h1>Template:<%= data.title %>
+            </h1>
+            <p>
+                <%= data.description %> <a href="https://meta.wikimedia.org/wiki/User:<%=data.username %>">
+                        <%= data.creator %>
+                    </a> You can create
+                    templates
+                    like this from <a href="./create.html">here</a>.
+            </p>
+        </div>
+        <ul class="menu" id="menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="javascript:void" onclick="history.back()">Go back</a></li>
+        </ul>
+        <% if(obj.key && obj.password) {%>
+            <div id="banner">
+                <span>
+                    <b>key: <%= obj.key %></b><br>
+                    <b>Password: <%= obj.password %></b>
+                </span>
+                <p>Copy Id and Password and save it somewhere for feuture referance <button id="copy">Copy</button>
+                </p>
+            </div>
+            <% } %>
+    </main>
+    <nav>
+        <section id='window'>
+            <h2>Window</h2>
+            <ul>
+                <li>
+                    <input data-properties='Page name' type='checkbox' name='window' id='windowinp-input1' disabled
+                        checked>
+                    <label for='windowinp-input1'>Page name</label>
+                </li>
+                <li>
+                    <input data-properties='User names' type='checkbox' name='window' id='windowinp-input2' checked>
+                    <label for='windowinp-input2'>User names</label>
+                </li>
+                <li>
+                    <input data-properties='Jurry names' type='checkbox' name='window' id='windowinp-input3' checked>
+                    <label for='windowinp-input3'>Jurry names</label>
+                </li>
+                <li>
+                    <input data-properties='Upload date' type='checkbox' name='window' id='windowinp-input4' checked>
+                    <label for='windowinp-input4'>Upload date</label>
+                </li>
+                <li>
+                    <input data-properties='Creation Date' type='checkbox' name='window' id='windowinp-input5'>
+                    <label for='windowinp-input5'>Creation Date</label>
+                </li>
+                <li data-tool='ec'>
+                    <input data-properties='User edit Count' type='checkbox' name='window' id='windowinp-input6'>
+                    <label for='windowinp-input6'>User edit Count</label>
+                </li>
+                <li data-tool='cc'>
+                    <input data-properties='User Last contribution date' type='checkbox' name='window'
+                        id='windowinp-input7'>
+                    <label for='windowinp-input7'>User Last contribution date</label>
+                </li>
+                <li>
+                    <input data-properties='Single checking' type='checkbox' name='window' id='windowinp-input8'>
+                    <label for='windowinp-input8'>Single checking</label>
+                </li>
+                <li>
+                    <input data-properties='Page Checker(s) name' type='checkbox' name='window' id='windowinp-input9'>
+                    <label for='windowinp-input9'>Page Checker(s) name</label>
+                </li>
+                <li data-tool='tm'>
+                    <label for='windowinp-input10-select'>Result Update:</label>
+                    <select id='windowinp-input10-select' name='window-select'>
+                        <option value='At the End of the competition' selected>At the End of the competition</option>
+                        <option value='Every week'>Every week</option>
+                        <option value='Every month'>Every month</option>
+                        <option value='Every Day'>Every Day</option>
+                        <option value='After Every judgement'>After Every judgement</option>
+                    </select>
+                </li>
+                <li data-tool='msn'>
+                    <input type='checkbox' name='window' id='windowinp-input11' data-properties='Send feedback' checked>
+                    <label for='windowinp-input11'>Send feedback to user page</label>
+                </li>
+                <li>
+                    <label for='windowinp-input12-radio1'>Feedback Template (if needed, not required)</label>
+                    <input type='text' name='window-text' data-properties='Feedback Template'
+                        id='windowinp-input12-radio1'>
+                </li>
+                <li>
+                    <label for='windowinp-input13-select'>Default Sort using: <span style='color:red;'>(check if that
+                            field is checked; Default: Page name)</span></label>
+                    <select id='windowinp-input13-select' name='window-select'>
+                        <option value='Page Name' selected>Page Name</option>
+                        <option value='User names'>User names</option>
+                        <option value='Upload date'>Upload date</option>
+                        <option value='Creation Date'>Creation Date</option>
+                    </select>
+                </li>
+                <li data-tool='cw'>
+                    <input data-properties='Countdown' type='checkbox' name='window' id='windowinp-input14' checked>
+                    <label for='windowinp-input14'>Countdown</label>
+                </li>
+                <li data-tool='msn'>
+                    <input data-properties='add text in talk page' type='checkbox' name='window' id='windowinp-input15'
+                        checked>
+                    <label for='windowinp-input15'>Text which will be added in talk page</label>
+                    <input style="min-height: 50px;" type="text" id='windowinp-input15-text1'>
+                </li>
+                <li data-tool='msn'>
+                    <input data-properties='add text in main pages' type='checkbox' name='window'
+                        id='windowinp-input16'>
+                    <label for='windowinp-input16'>Text which will be added in Article page</label>
+                    <input style="min-height: 50px;" type="text" id='windowinp-input16-text1'>
+                </li>
+                <li>
+                    <label for='windowinp-input17-select'>Make Result using:</label>
+                    <select data-properties="Result Makeing" id='windowinp-input17-select' name='window-select'>
+                        <option value='Page Count' selected>Page Count</option>
+                        <option value='Word Count' data-tool='twc'>Word Count</option>
+                    </select>
+                </li>
+                <li data-tool='bu'>
+                    <input data-properties='Batch Upload' type='checkbox' name='window' id='windowinp-input18' checked>
+                    <label for='windowinp-input18'>Batch Upload</label>
+                </li>
+                <li data-tool='br'>
+                    <input data-properties='Batch review' type='checkbox' name='window' id='windowinp-input19' checked>
+                    <label for='windowinp-input19'>Batch review</label>
+                </li>
+                <li>
+                    <input data-properties='Statistic' type='checkbox' name='window' id='windowinp-input20' checked>
+                    <label for='windowinp-input20'>Statistic</label>
+                </li>
+            </ul>
+        </section>
+        <form id="main"></form>
+        <section id='tools'>
+            <h2>Tools</h2>
+            <ul>
+                <li class='item'><span class='color' style='background-color: #c800ff;'></span><span>word added
+                    </span> <!-- (code:wa) -->
+                </li>
+                <li class='item'><span class='color' style='background-color: #2e35ff;'></span><span>Total word
+                        Count </span> <!-- (code:twc) -->
+                </li>
+                <li class='item'><span class='color' style='background-color: #ffd92e;'></span><span>Table maker
+                    </span> <!-- (code:tm) -->
+                </li>
+                <li class='item'><span class='color' style='background-color: #0cb400;'></span><span>Messenger
+                    </span> <!-- (code:msn) -->
+                <li class='item'><span class='color' style='background-color: #b42400;'></span><span>Edit counter
+                    </span> <!-- (code:ec) -->
+                <li class='item'><span class='color' style='background-color: #ff2bb5;'></span><span>Contribution
+                        counter
+                    </span> <!-- (code:cc) -->
+                </li>
+                <li class='item'><span class='color' style='background-color: #8521ff;'></span><span>Countdown
+                    </span> <!-- (code:cw) -->
+                </li>
+                <li class='item'><span class='color' style='background-color: #21f3ff;'></span><span>Batch Upload
+                    </span> <!-- (code:bu) -->
+                </li>
+                <li class='item'><span class='color' style='background-color: #ff5a5a'></span><span>Batch review
+                    </span> <!-- (code:br) -->
+                </li>
+            </ul>
+        </section>
+    </nav>
+</body>
+<script>
+    //render html
+    const jsonobj = JSON.parse(validateStr('<%= jsonobj %>'));
+    const main = document.getElementById("main");
+    main.innerHTML += validateStr('<%= data.html %>').replace(/\$\{name\}/, jsonobj.name).replace(/\$\{project\}/, jsonobj.project);
+    const subbtn = document.createElement('button');
+    subbtn.type = 'submit';
+    subbtn.id = 'submit';
+    subbtn.textContent = 'Submit';
+    main.appendChild(subbtn)
+
+    // Add an event listener for the click event on the submit button
+    subbtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
+
+        // Create an object to store the form data
+        const formData = {};
+
+        // Read inputs and selects from the `window` section
+        const windowInputs = document.querySelectorAll('#window input, #window select');
+
+        windowInputs.forEach(input => {
+            const key = (input.dataset.properties || input.name || input.id).toLowerCase().replace(/\s+/g, "_");
+
+            if (input.type === 'checkbox') {
+                // Store the checked status for checkboxes and radio buttons
+                formData[key] = input.checked;
+            } else if (input.type === 'text' || input.type === 'number' || input.type === 'date' || input.type === 'time') {
+                // Store the value for text, number, date, and time inputs
+                formData[key] = input.value;
+            } else if (input.tagName.toLowerCase() === 'select') {
+                // Store the selected value for select elements
+                formData[key] = input.value;
+            }
+        });
+
+        // Read inputs from the `main` section
+        const mainInputs = document.querySelectorAll('#main input, #main select');
+
+        mainInputs.forEach(input => {
+            const key = (input.dataset.properties || input.name || input.id).toLowerCase().replace(/\s+/g, "_");
+
+            if (input.type === 'checkbox' || input.type === 'radio') {
+                // Store the checked status for checkboxes and radio buttons
+                formData[key] = input.checked;
+            } else if (input.type === 'text' || input.type === 'number' || input.type === 'date' || input.type === 'time') {
+                // Store the value for text, number, date, and time inputs
+                formData[key] = input.value;
+            } else if (input.tagName.toLowerCase() === 'select') {
+                // Store the selected value for select elements
+                formData[key] = input.value;
+            }
+        });
+        //console.log(({ data: formData, key: jsonobj.key }))
+        fetch('/dashboard', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ data: formData, key: jsonobj.key }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    console.error(data.error)
+                } else {
+                    window.location.replace('/dashboard?key=' + jsonobj.key)
+                }
+            })
+            .catch((error) => console.error(error));
+    });
+    //copy key pass
+    document.getElementById("copy").addEventListener("click", () => {
+        navigator.clipboard ? navigator.clipboard
+            .writeText("Key: <%= obj.key %>, Password: <%= obj.password %>").then(function () {
+                alert('Copied to clipboard successfully!');
+            }, function () {
+                alert('Unable to copy. Please copy it manually :-(');
+            }) : alert('Unable to copy. Please copy it manually :-(');
+    });
+
+</script>
+
+</html>

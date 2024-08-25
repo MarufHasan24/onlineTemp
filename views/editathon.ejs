@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--Code created by Maruf hasan-->
+<!--Date: 08 August, 2024-->
+<html>
+<meta name="author" content="Maruf hasan" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+<head>
+    <title>
+        <%= data.title %>
+    </title>
+    <script src="/assets/scripts/tools.js"></script>
+    <link rel="stylesheet" href="/assets/styles/common.css">
+    <link rel="stylesheet" href="/assets/styles/editathon.css">
+    <header>
+        <h1>
+            <%= data.data.title %>
+        </h1>
+    </header>
+</head>
+
+<body>
+    <iframe src="/background.html" frameborder="0"></iframe>
+    <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard?key=<%= key %>">Dashboard</a></li>
+        <li><a href="javascript:void" onclick="history.back()">Go back</a></li>
+    </ul>
+    <% if(data.data.countdown) {%>
+        <iframe class="countdown" src="./countdown.html" id="countdown" frameborder="0"></iframe>
+        <script>
+            // Ensure the iframe is fully loaded before accessing its content
+            document.getElementById('countdown').onload = function () {
+                // Access the countdown function inside the iframe's content window
+                this.contentWindow.countdown(
+                    Date.parse('<%=data.data.end_date%>' + ' ' + '<%=data.data.end_time%>'), Date.parse('<%=data.data.start_date%>' + ' ' + '<%=data.data.start_time%>')
+                );
+            };
+        </script>
+        <% } %>
+            <% if(data.data.statistic) { %>
+                <div class="stats">
+                    <div class="stat-card">
+                        <h2 class="stat-value">
+                            <%= data.data.pagecount %>
+                        </h2>
+                        <p class="stat-label">Total Submission</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 class="stat-value">
+                            <%= data.data.usercount %>
+                        </h2>
+                        <p class="stat-label">Total Submitor</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 class="stat-value">
+                            <%= Object.keys(data.data.jurries_list).length %>
+                        </h2>
+                        <p class="stat-label">
+                            Total Jurries
+                            <span class="stat-detail">Pages per Jurry:
+                                <strong>
+                                    <%= Math.ceil((Number(data.data.pagecount) - Number(data.data.reviewed)) /
+                                        Object.keys(data.data.jurries_list).length) %>
+                                </strong>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 class="stat-value reviewed">
+                            <%= data.data.reviewed %>
+                        </h2>
+                        <p class="stat-label">Total Reviewed</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 class="stat-value remaining">
+                            <%= Number(data.data.pagecount) - Number(data.data.reviewed) %>
+                        </h2>
+                        <p class="stat-label">Remaining</p>
+                    </div>
+                </div>
+                <% } %>
+</body>
+
+
+
+</html>
