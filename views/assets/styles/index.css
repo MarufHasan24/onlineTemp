@@ -1,0 +1,319 @@
+/* Basics */
+* {
+    scrollbar-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+html,
+body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+h1 {
+    margin-bottom: 10px;
+    font-family: bangla;
+}
+
+/* main compertment */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    padding: 5px;
+    font-family: yoo, Arial, Helvetica, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80%;
+    justify-content: center;
+    font-family: yoo, Arial, Helvetica, sans-serif;
+}
+
+footer {
+    height: 10%;
+    display: flex;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    margin: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    padding: 5px;
+    font-family: exo, Arial, Helvetica, sans-serif;
+    width: calc(100% - 10px);
+}
+
+
+/* main */
+main nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 85%;
+    width: min(800px, 100%);
+    background: transparent;
+    backdrop-filter: blur(10px);
+    border: #eee 2px solid;
+    border-radius: 5px;
+}
+
+div.project {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+div.project select:first-child {
+    width: 30%;
+}
+
+div.project select:last-child {
+    width: 60%;
+}
+
+div.project select {
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+
+main nav button {
+    border-radius: 20px;
+    border: 1px solid #2bffb5;
+    background-color: var(--tilt);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    max-width: 80%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+main nav button:active {
+    transform: scale(0.95);
+}
+
+main nav button:focus {
+    outline: none;
+}
+
+main nav button.ghost {
+    background-color: transparent;
+    border-color: #FFFFFF;
+}
+
+main nav form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+main nav .overlay-panel h1 {
+    font-weight: bold;
+    margin: 0;
+}
+
+main nav .overlay-panel p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 10px 10px;
+    font-weight: 400;
+    font-family: exo, Times, serif;
+}
+
+main nav form input,
+main nav form select {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    font-size: 14px;
+    width: 100%;
+}
+
+main nav .container {
+    background-color: #fff;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    height: min(80%, 700px);
+}
+
+main nav .form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+main nav .sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+main nav .sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+main nav .container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+}
+
+main nav .container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.3s;
+}
+
+@keyframes show {
+
+    0%,
+    49% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+main nav .overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+}
+
+main nav .container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+main nav .overlay {
+    background: #FF416C;
+    background: -webkit-linear-gradient(0deg, #ff15a1, #15ffa5);
+    background: linear-gradient(45deg, #ff15a1, #15ffa5, #ff15a1);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+main nav .container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+main nav .overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+main nav .overlay-left {
+    transform: translateX(-20%);
+}
+
+main nav .container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+main nav .overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+main nav .container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+/* footer */
+footer a {
+    color: #333;
+    background-color: #fff;
+    text-decoration: none;
+    padding: 5px;
+    margin-left: 2.5px;
+    transition: 0.2s;
+    display: inline-flex;
+}
+
+footer a:hover {
+    padding: 7px;
+    margin-left: 2px;
+}
+
+@media (max-width:800px) {
+    main nav button {
+        padding: 10px 15px;
+    }
+
+    header {
+        min-height: fit-content;
+        height: auto;
+    }
+
+    h1 {
+        font-family: banglam, Arial, Helvetica, sans-serif;
+    }
+
+    main nav form input,
+    main nav form select {
+        padding: 5px 7px;
+    }
+}
