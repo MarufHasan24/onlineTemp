@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/assets/scripts/tools.js"></script>
+    <link rel="stylesheet" href="/assets/styles/common.css">
+    <link rel="stylesheet" href="/assets/styles/table.css">
+    <header>
+        <% if(key) { %>
+            <ul class="menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard?key=<%= key %>">Dashboard</a></li>
+                <li><a href="/editathon?key=<%= key %>">Editathon</a></li>
+                <li><a href="javascript:void" onclick="history.back()">Go back</a></li>
+            </ul>
+            <% } else { %>
+                <p>Enter key first</p>
+                <ul class="menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="javascript:void" onclick="history.back()">Go back</a></li>
+                </ul>
+                <% } %>
+    </header>
+    <style>
+        tr {
+            cursor: pointer;
+        }
+
+        tr:nth-child(odd).active {
+            background-color: rgb(255, 25, 0);
+            color: rgb(0, 0, 0);
+        }
+
+        tr:nth-child(even).active {
+            background-color: rgb(115, 12, 0);
+            color: rgb(255, 255, 255);
+        }
+
+        .loader {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        .btncontainer {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 98%;
+            margin: 0;
+            padding: 1%;
+            justify-content: space-between;
+        }
+
+        input[type="submit"],
+        a.cancel,
+        a.submit,
+        button {
+            /* Submit button takes 2 columns */
+            padding: 10px;
+            overflow: hidden;
+            background-color: #5fb6a4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        a.submit:hover,
+        a.cancel:hover,
+        button:hover {
+            background-color: #4a9a88;
+        }
+    </style>
+</head>
+
+<body>
+    <% if(key) { %>
+        <iframe src="/background.html" frameborder="0"></iframe>
+        <div class="container">
+            <div class="btncontainer">
+                <button type='submit' class="cancel" id='submit'>Delete</button>
+                <div><span id="selectCount"></span></div>
+                <a class='submit' onclick="history.back()">Cancel</a>
+            </div>
+            <div id="tableContainer">
+                <table>
+                    <thead>
+                        <th>Serial</th>
+                        <th>Page name</th>
+                        <th>Submission Date</th>
+                        <th>Reviewer</th>
+                    </thead>
+                    <tbody id="table"></tbody>
+                </table>
+            </div>
+            <div class="loader" id="loader">Loading more tables...</div>
+            <script>
+                const table = document.getElementById("table");
+                const selectCount = document.getElementById("selectCount");
+                const goback = document.querySelector("a.submit");
+                let startindex = 0; // Initial start index
+                let loading = false; // To prevent multiple scroll triggers
+
+                // Initial table load
+                loadTable(startindex, appendTableData);
+
+                // Function to load and append table data
+                function appendTableData(data) {
+                    let index = startindex + 1;
+                    for (i in data.json) {
+                        table.innerHTML += `<tr><td>${index++}</td><td>${i}</td><td>${new Date(data.json[i].sd).toDateString()}</td><td>${data.json[i].rev}</td></tr>`
+                    }
+                    const rows = document.querySelectorAll('tbody tr');
+
+                    // Loop through the rows and add click event listener
+                    rows.forEach(row => {
+                        row.addEventListener('click', () => {
+                            // Toggle the 'active' class on the clicked row
+                            row.classList.toggle('active');
+                            selectCount.innerHTML = 'Total selected: ' + document.querySelectorAll(".active").length
+                        });
+                    });
+                    if (!data.batchcompleate) {
+                        startindex += data.startindex; // Increment startindex based on rows loaded
+                        loading = false; // Allow further scroll triggers
+                    } else {
+                        // Hide 'load more' indicator or stop loading if no more data
+                        loading = true;
+                    }
+                }
+
+                // Scroll event listener
+                window.addEventListener("scroll", () => {
+                    if (loading) return; // Prevent additional calls while already loading
+
+                    // Check if the user is near the bottom of the page (within 100px)
+                    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+                        loading = true; // Set loading to true to avoid repeated triggers
+                        loadTable(startindex, appendTableData); // Load more rows
+                    }
+                });
+
+                // Function to load rows
+                function loadTable(startindex, callback) {
+                    proxyFetch(
+                        "get-rows",
+                        { key: "<%=key%>", startindex: startindex, count: 100, format: "json" },
+                        (data) => {
+                            callback(data); // Append data after fetching
+                        }
+                    );
+                }
+
+            </script>
+            <script>
+                let temp = {}
+                const deleteBtn = document.querySelector("button#submit");
+                deleteBtn.addEventListener("click", () => {
+                    goback.innerHTML = "Let's get Back"
+                    let rows = document.querySelectorAll("tr.active");
+                    const jsonData = {};
+                    rows.forEach((row) => {
+                        const cells = row.querySelectorAll('td');
+                        // Create a JSON object with the data from the cells
+                        jsonData[cells[1].innerText] = {
+                            name: cells[1].innerText,
+                            date: cells[2].innerText,
+                            rev: cells[3].innerText
+                        };
+                    })
+                    const key = "IOt0opzjmObdTqewC/FGm5PHNmV+7QuhbHmox5bpfFE=";
+                    let username = JSON.parse(localStorage.getItem(key)).username;
+                    const commonKeys = Object.keys(jsonData).filter(key => temp.hasOwnProperty(key));
+                    const reviveData = {};
+                    commonKeys.forEach(key => reviveData[key] = temp[key]);
+                    proxyFetch("remove",
+                        {
+                            key: '<%=key%>',
+                            username,
+                            data: jsonData,
+                            type: deleteBtn.classList.contains("cancel") ? "delete" : "discard",
+                            revive: Object.keys(reviveData).length ? reviveData : null
+                        }, ({ err, data }) => {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                //console.log(data);
+                                if (deleteBtn.classList.contains("cancel")) {
+                                    let count = Object.keys(data).length;
+                                    selectCount.innerHTML = count + ' page' + (count > 1 ? "s" : '') + ' has deleted from this list';
+                                    deleteBtn.innerHTML = "Discard";
+                                    deleteBtn.className = "discard";
+                                    temp = data;
+                                } else {
+                                    let count = Object.keys(data).length;
+                                    selectCount.innerHTML = count + ' page' + (count > 1 ? "s" : '') + ' has been restored from this list';
+                                    deleteBtn.innerHTML = "Delete";
+                                    deleteBtn.className = "cancel";
+                                    temp = {};
+                                }
+                            }
+                        })
+                })
+            </script>
+            <% } else { %>
+                <!-- If retake is true, ask for both key and password -->
+                <section class="checking">
+                    <h2>Enter Your key here.</h2>
+                    <form>
+                        <input type="text" name="key" placeholder="key">
+                        <button onclick="submit()" type="submit">Submit</button>
+                    </form>
+                </section>
+                <script>
+                    function submit() {
+                        let key = document.querySelector("input[name='key']").value;
+                        location.href = "/remove?key=" + encodeURIComponent(key)
+                    }
+                </script>
+                <% } %>
+
+
+</body>
+
+</html>
